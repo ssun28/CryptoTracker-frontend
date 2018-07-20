@@ -1,0 +1,10 @@
+.transaction-table-header {
+  margin-top: 5%;
+  text-align: center;
+}
+
+.react-bs-table-container.transaction-table {
+  width: 75%;
+  margin-left: 12.5%;
+  margin-right: 12.5%;
+}

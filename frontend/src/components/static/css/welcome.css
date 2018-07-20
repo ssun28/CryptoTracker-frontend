@@ -1,0 +1,18 @@
+temp {
+  font-size: 120%;
+}
+
+.table-custom {
+  margin-bottom: 0px;
+}
+
+.react-bs-table-container {
+  width: 65%;
+  margin-left: 17.5%;
+  margin-right: 17.5%;
+}
+
+.react-bs-table {
+  border-color: rgba(255,255,255);
+
+}

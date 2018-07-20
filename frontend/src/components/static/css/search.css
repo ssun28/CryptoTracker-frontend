@@ -1,0 +1,34 @@
+.overall{
+    background: linear-gradient(to bottom left, rgba(0, 0, 0, 0.87), rgba(11, 46, 141, 0.87));
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 100vh;
+}
+
+.tableStyle{
+
+    padding-top: 40px;
+}
+
+.tableStyle, .th-string-example {
+    font-style: oblique !important;
+    color: white !important;
+    background-color:transparent !important;
+}
+
+
+
+.cl{
+    font-size: 35px;
+    padding-bottom: 5%;
+    padding-left: 90px;
+    padding-right: 90px;
+
+}
+
+#title{
+    color:white !important
+}

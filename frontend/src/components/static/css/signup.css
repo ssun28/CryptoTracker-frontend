@@ -1,0 +1,41 @@
+.signup {
+  background:rgba(0, 0, 0, 0.5) !important;
+  color: #fff;
+  transform: translate(-50%, -50%);
+  top:50%;
+  left: 25%;
+  height: 70%;
+  width: 400px;
+  position: absolute;
+}
+
+/* .col-md-6 {
+  height: 585px;
+} */
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  background-color: transparent !important;
+  background-image: none !important;
+
+}
+
+.overall{
+  background-image: url('../../../assets/registerbg.png');
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+  margin-top: 0;
+  margin-bottom: 0;
+  height: 100vh;
+
+}
+
+#registerbgoverlay{
+  position: absolute;
+  background-color: rgba(6, 224, 42, 0.45) !important;
+  top: 0;
+  bottom:  0;
+  height: 100%;
+  width: 100%;
+
+}

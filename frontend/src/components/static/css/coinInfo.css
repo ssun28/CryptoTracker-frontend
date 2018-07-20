@@ -1,0 +1,66 @@
+.coinInfo-header {
+  display: flex;
+  margin-top: 8%;
+  margin-left: 10%;
+}
+
+.coin-logo img{
+  margin-top: 4%;
+  margin-left: 4%;
+}
+
+.coin-name {
+  margin-left: 4%;
+}
+
+.main-header {
+  margin-left: 20%;
+  padding-left: 50px;
+}
+
+.coin-user-warning {
+  margin-top: -15%;
+}
+
+.coin-user-amount {
+  margin-left: 40%;
+}
+
+.coin-buy-sell-button {
+  margin-top: 27%;
+  margin-left: 5%;
+  padding-left: 22%;
+}
+
+.btn-lg .btn-group-lg > .btn {
+      padding: 10px 50px;
+}
+
+.coinInfo-details-pannel {
+  display: flex;
+  margin-left: 25%;
+}
+
+.coin-summary-item-header {
+  background-color: #f5f7f8;
+  padding: 12px 12px 11px;
+  border-top: none;
+  border-bottom: 1px solid #e1e5ea;
+  border-left: none;
+  border-right: none;
+  font-size: 20px;
+  white-space: nowrap;
+  margin-bottom: 12px;
+}
+
+.coin-summary-item-details {
+  padding: 0 12px;
+}
+
+.coin-user-input {
+  display: flex;
+}
+
+/* input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  background-color: black !important;
+} */

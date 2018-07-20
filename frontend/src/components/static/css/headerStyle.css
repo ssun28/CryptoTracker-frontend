@@ -1,0 +1,10 @@
+header{
+    width: 100%;
+    background: #333;
+    padding: 10px 0;
+    color:white;
+}
+
+.navbar{
+    margin-bottom: 0px !important;
+}
