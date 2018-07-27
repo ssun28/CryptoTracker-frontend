@@ -1,0 +1,14 @@
+.total-value {
+  margin-top: 10%; 
+  margin-left: 10%;
+}
+
+/* .MuiFormControl-root-1 {
+  width: 50%;
+  height: 50%;
+  font-size: 150%;
+} */
+
+#total-value-textfield {
+  height: 80% !important;
+}

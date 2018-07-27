@@ -22,7 +22,7 @@ class Signup extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <div className="overall">
+      <div className="overall-signup">
       <div id="registerbgoverlay">
       
           <div className="col-md-6 col-md-offset-3 signup">
@@ -60,6 +60,8 @@ class Signup extends Component {
               </FormGroup>
               <FormGroup>
                 <Field name="firstname" component="FormControl" componentClass="select">
+                <ControlLabel className="control-label">First Name</ControlLabel>
+
                   <FormControl
                     type="text"
                     placeholder="First Name"
@@ -69,6 +71,8 @@ class Signup extends Component {
               </FormGroup>
               <FormGroup>
                 <Field name="lastname" component="FormControl" componentClass="select">
+                <ControlLabel className="control-label">Last Name</ControlLabel>
+
                   <FormControl
                     type="text"
                     placeholder="Last Name"

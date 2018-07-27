@@ -14,8 +14,18 @@
 }
 
 .main-header {
-  margin-left: 20%;
+  display: flex;
+  margin-left: 42%;
   padding-left: 50px;
+  margin-top: 30%;
+}
+
+.main-header-currency {
+  margin-top: 20%;
+}
+
+.main-header-price {
+  margin-left: 20%;
 }
 
 .coin-user-warning {

@@ -3,52 +3,94 @@ import { reduxForm, Field } from 'redux-form';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import requireAuth from './requireAuth';
-import { FormGroup, FormControl, ControlLabel, HelpBlock, ButtonGroup, Button, Alert} from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, HelpBlock, ButtonGroup, Button, Alert, DropdownButton, MenuItem} from 'react-bootstrap';
 
+import 'font-awesome/css/font-awesome.min.css';
 import './static/css/coinInfo.css';
 
 var CoinMarketCap = require("node-coinmarketcap");
 var coinmarketcap = new CoinMarketCap();
+var oxr = require('open-exchange-rates');
+var currencyFormatter = require('currency-formatter');
+var fx = require('money');
 
 
 class CoinInfo extends Component {
   constructor(props, context) {
-   super(props, context);
-   this.state = {
-            "coinSymbol": '',
-            "rank": '',
-            "price_usd": '',
-            "market_cap_usd": '',
-            "total_supply": '',
-            "available_supply": '',
-            "percent_change_1h": '',
-            "percent_change_24h": ''
-   }
+    super(props, context);
+    this.state = {
+      "price": '',
+      "currencyType": 'USD',
+      "coinSymbol": '',
+      "rank": '',
+      "price_usd": '',
+      "market_cap_usd": '',
+      "total_supply": '',
+      "available_supply": '',
+      "percent_change_1h": '',
+      "percent_change_24h": ''
+}
 
    this.onSubmit = this.onSubmit.bind(this);
-   const coinName= this.props.location.state.param.coinName;
+  //  this.currencyClick = this.currencyClick.bind(this);
 
-   coinmarketcap.get(coinName, coin => {
-     this.setState({coinSymbol: coin.symbol});
-     this.setState({rank: coin.rank});
-     this.setState({price_usd: coin.price_usd});
-     this.setState({market_cap_usd: coin.market_cap_usd});
-     this.setState({total_supply: coin.total_supply});
-     this.setState({available_supply: coin.available_supply});
-     this.setState({percent_change_1h: coin.percent_change_1h});
-     this.setState({percent_change_24h: coin.percent_change_24h});
+ 
+
+    // fx.base = "USD";
+    // fx.rates = {
+    //     "USD" : 1, 
+    //     "EUR" : 0.855939,
+    //     "GBP" : 0.760848,
+    //     "CNY" : 6.78965,
+    //     "CAD" : 1.315771,
+    //     "AUD" : 1.347365,
+    //     "JPY" : 111.20630435
+    // }
+    // const currencyPrice = fx(1000).from("USD").to("CNY");
+    // console.log('currencyPrice'+currencyPrice);
+
+
+    // oxr.set({ app_id: '40957c78b3cd4a20b9858149433d216d' })
+
+    // console.log('123123123123123123123123');
+    // // oxr.latest(function() {
+
+    // //   fx.rates = oxr.rates;
+    // //   fx.base = oxr.base;
+
+    // //   var cash = fx(100).from('USD').to('CNY'); // ~8.0424
+    // //   console.log('cash' + cash);
+    // // });
+  }
+
+  componentWillMount() {
+    const coinSymbol= this.props.location.state.param.coinSymbol;
    
-//   console.log("symbol: "+coin.symbol);
-//   console.log("rank: "+coin.rank);
-//   console.log("market_cap_usd: "+coin.market_cap_usd);
-//   console.log("total_supply: "+coin.total_supply);
-//   console.log("available_supply: "+coin.available_supply);
-//   console.log("percent_change_1h: "+coin.percent_change_1h);
-//   console.log("percent_change_24h: "+coin.percent_change_24h); // Prints the price in USD of BTC at the moment.
-//   console.log(coin.price_usd);
-//
-    });
+    coinmarketcap.multi(coins => {
+      if(coins.get(coinSymbol) === undefined){
+        alert("There is no information about this coin now!");
+      }else {
+        // console.log("11111111111",coins.get(coinSymbol).price_usd);
+        this.setState({coinSymbol: coins.get(coinSymbol).symbol, 
+                       rank: coins.get(coinSymbol).rank,
+                       price_usd: coins.get(coinSymbol).price_usd,
+                       market_cap_usd: coins.get(coinSymbol).market_cap_usd,
+                       total_supply: coins.get(coinSymbol).total_supply,
+                       available_supply: coins.get(coinSymbol).available_supply,
+                       percent_change_1h: coins.get(coinSymbol).percent_change_1h,
+                       percent_change_24h: coins.get(coinSymbol).percent_change_24h,
+                       price: coins.get(coinSymbol).price_usd
+                      });
+        //this.setState({rank: coins.get(coinSymbol).rank});
+        // this.setState({price_usd: coins.get(coinSymbol).price_usd});
+        // this.setState({market_cap_usd: coins.get(coinSymbol).market_cap_usd});
+        // this.setState({total_supply: coins.get(coinSymbol).total_supply});
+        // this.setState({available_supply: coins.get(coinSymbol).available_supply});
+        // this.setState({percent_change_1h: coins.get(coinSymbol).percent_change_1h});
+        // this.setState({percent_change_24h: coins.get(coinSymbol).percent_change_24h});
+        // this.setState({price: coins.get(coinSymbol).price_usd});
+       }
+     });
   }
 
   onSubmit = (type, formProps) => {
@@ -81,40 +123,91 @@ class CoinInfo extends Component {
     });
   }
 
+  componentWillUpdate() {
+    this.currencyClick();
+  }
+
   doCheck() {
-    if(!this.props.authenticated){
-      return(
-        <Alert bsStyle="danger">
-          <strong>You have to SIGN IN FIRST!</strong>
-        </Alert>
-      );
+    // if(!this.props.authenticated){
+    //   return(
+    //     <Alert bsStyle="danger">
+    //       <strong>You have to SIGN IN FIRST!</strong>
+    //     </Alert>
+    //   );
+    // }
+  }
+
+  // currencyFormatter(amount, currency) {
+  //   var currencyResult = currencyFormatter.format(amount, { code: currency });
+  //   return currencyResult;
+  // }
+
+  currencyClick(currencyType){
+    fx.base = "USD";
+    fx.rates = {
+        "USD" : 1, 
+        "EUR" : 0.855939,
+        "GBP" : 0.760848,
+        "CNY" : 6.78965,
+        "CAD" : 1.315771,
+        "AUD" : 1.347365,
+        "JPY" : 111.20630435
     }
+    var priceUsd = '1000';
+    // console.log('######');
+    // console.log('priceUSD:=========='+this.state.price_usd);
+    // console.log('type', currencyType);
+    if(priceUsd !== ''){
+      const currencyPrice = fx(priceUsd).from("USD").to(currencyType);
+      console.log('currencyPrice'+currencyPrice);
+      this.setState({price: currencyPrice});
+    }
+
   }
 
   render() {
     const { handleSubmit } = this.props;
     const param = this.props.location.state.param;
+    const CURRENCIES = ['USD', 'EUR',  'GBP', 'CNY', 'CAD', 'AUD', 'JPY'];
 
     return (
       <div>
         <div className="coinInfo-header">
           <div className="coinInco-sidebar">
             <div className="coin-logo">
-              {/* <img src={"https://s2.coinmarketcap.com/static/img/coins/128x128/"+param.id+".png"} /> */}
-              <img src={"https://www.coinratecap.com/assets/images/coins/"+param.coinSymbol.toLowerCase()+".png"} />
+              <img src={"https://s2.coinmarketcap.com/static/img/coins/128x128/"+param.id+".png"} />
             </div>
             <div className="coin-name">
               <h4>{param.coinName}
                 <span>
-                  （{this.state.coinSymbol}）
+                  （{param.coinSymbol}）
                 </span>
               </h4>
-              <h4>#Rank:{this.state.rank}</h4>
+              <h4><i className="fa fa-signal" aria-hidden="true" style={{fontSize:'28px'}}></i>  Rank: {this.state.rank}</h4>
             </div>
           </div>
           <div>
             <div className="main-header">
-              <h1>{this.state.price_usd}</h1>
+              <div className="main-header-currency">
+                <DropdownButton title='Currency'>
+                <MenuItem onClick={this.currencyClick('USD')} >USD</MenuItem>
+                <MenuItem onClick={this.currencyClick('EUR')} >EUR</MenuItem>
+                <MenuItem onClick={this.currencyClick('GBP')} >GBP</MenuItem>
+                <MenuItem onClick={this.currencyClick('CNY')} >CNY</MenuItem>
+                <MenuItem onClick={this.currencyClick('CAD')} >CAD</MenuItem>
+                <MenuItem onClick={this.currencyClick('AUD')} >AUD</MenuItem>
+                <MenuItem onClick={this.currencyClick('JPY')} >JPY</MenuItem>
+                  {/* {
+                    CURRENCIES.map((currencyType) =>
+                      <MenuItem onClick={this.currencyClick(currencyType)} >{currencyType}</MenuItem>)
+                  } */}
+                </DropdownButton>
+              </div>
+              <div className="main-header-price">
+                <h1>{this.state.price_usd}</h1>
+                {/* <ExchangeRate from='USD' to='CNY' val={this.state.price}/> */}
+                {/* <h1>{this.currencyFormatter(this.state.price, this.state.currencyType)}</h1> */}
+              </div> 
             </div>
           </div>
           <div className="coin-user-amount">
