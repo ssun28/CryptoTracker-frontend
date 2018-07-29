@@ -7,12 +7,11 @@ import { FormGroup, FormControl, ControlLabel, HelpBlock, ButtonGroup, Button, A
 
 import 'font-awesome/css/font-awesome.min.css';
 import './static/css/coinInfo.css';
+import PriceChart from './price_chart/PriceChart';
 
 var CoinMarketCap = require("node-coinmarketcap");
 var coinmarketcap = new CoinMarketCap();
-var oxr = require('open-exchange-rates');
-var currencyFormatter = require('currency-formatter');
-var fx = require('money');
+var formatCurrency = require('format-currency')
 
 
 class CoinInfo extends Component {
@@ -21,6 +20,7 @@ class CoinInfo extends Component {
     this.state = {
       "price": '',
       "currencyType": 'USD',
+      "currencyTitle": 'Currency',
       "coinSymbol": '',
       "rank": '',
       "price_usd": '',
@@ -29,38 +29,9 @@ class CoinInfo extends Component {
       "available_supply": '',
       "percent_change_1h": '',
       "percent_change_24h": ''
-}
+    }
 
    this.onSubmit = this.onSubmit.bind(this);
-  //  this.currencyClick = this.currencyClick.bind(this);
-
- 
-
-    // fx.base = "USD";
-    // fx.rates = {
-    //     "USD" : 1, 
-    //     "EUR" : 0.855939,
-    //     "GBP" : 0.760848,
-    //     "CNY" : 6.78965,
-    //     "CAD" : 1.315771,
-    //     "AUD" : 1.347365,
-    //     "JPY" : 111.20630435
-    // }
-    // const currencyPrice = fx(1000).from("USD").to("CNY");
-    // console.log('currencyPrice'+currencyPrice);
-
-
-    // oxr.set({ app_id: '40957c78b3cd4a20b9858149433d216d' })
-
-    // console.log('123123123123123123123123');
-    // // oxr.latest(function() {
-
-    // //   fx.rates = oxr.rates;
-    // //   fx.base = oxr.base;
-
-    // //   var cash = fx(100).from('USD').to('CNY'); // ~8.0424
-    // //   console.log('cash' + cash);
-    // // });
   }
 
   componentWillMount() {
@@ -70,7 +41,6 @@ class CoinInfo extends Component {
       if(coins.get(coinSymbol) === undefined){
         alert("There is no information about this coin now!");
       }else {
-        // console.log("11111111111",coins.get(coinSymbol).price_usd);
         this.setState({coinSymbol: coins.get(coinSymbol).symbol, 
                        rank: coins.get(coinSymbol).rank,
                        price_usd: coins.get(coinSymbol).price_usd,
@@ -81,14 +51,6 @@ class CoinInfo extends Component {
                        percent_change_24h: coins.get(coinSymbol).percent_change_24h,
                        price: coins.get(coinSymbol).price_usd
                       });
-        //this.setState({rank: coins.get(coinSymbol).rank});
-        // this.setState({price_usd: coins.get(coinSymbol).price_usd});
-        // this.setState({market_cap_usd: coins.get(coinSymbol).market_cap_usd});
-        // this.setState({total_supply: coins.get(coinSymbol).total_supply});
-        // this.setState({available_supply: coins.get(coinSymbol).available_supply});
-        // this.setState({percent_change_1h: coins.get(coinSymbol).percent_change_1h});
-        // this.setState({percent_change_24h: coins.get(coinSymbol).percent_change_24h});
-        // this.setState({price: coins.get(coinSymbol).price_usd});
        }
      });
   }
@@ -117,34 +79,43 @@ class CoinInfo extends Component {
       default:
         break;
     }
-
     this.props.makeTransaction(formProps, () => {
          alert("The transaction has been added to your portfolio successfully!");
     });
   }
 
-  componentWillUpdate() {
-    this.currencyClick();
-  }
-
   doCheck() {
-    // if(!this.props.authenticated){
-    //   return(
-    //     <Alert bsStyle="danger">
-    //       <strong>You have to SIGN IN FIRST!</strong>
-    //     </Alert>
-    //   );
-    // }
+    if(!this.props.authenticated){
+      return(
+        <Alert bsStyle="danger">
+          <strong>You have to SIGN IN FIRST!</strong>
+        </Alert>
+      );
+    }
   }
 
-  // currencyFormatter(amount, currency) {
-  //   var currencyResult = currencyFormatter.format(amount, { code: currency });
-  //   return currencyResult;
-  // }
+  currencyFormatter(amount) {
+    let opts;
+    var currencySymbols = {
+      "USD" : '$', 
+      "EUR" : '€',
+      "GBP" : '£',
+      "CNY" : '¥',
+      "CAD" : '$',
+      "AUD" : '$',
+      "JPY" : '¥'
+    }
+    if(amount > 1){
+      opts = { format: '%s %v%c',code: this.state.currencyType, symbol: currencySymbols[this.state.currencyType] }
+    }else {
+      opts = { format: '%s %v%c',maxFraction: 8,code: this.state.currencyType, symbol: currencySymbols[this.state.currencyType] }
+    }
+    var currencyResult = formatCurrency(amount, opts);
+    return currencyResult;
+  }
 
   currencyClick(currencyType){
-    fx.base = "USD";
-    fx.rates = {
+    var currencyRates = {
         "USD" : 1, 
         "EUR" : 0.855939,
         "GBP" : 0.760848,
@@ -153,16 +124,9 @@ class CoinInfo extends Component {
         "AUD" : 1.347365,
         "JPY" : 111.20630435
     }
-    var priceUsd = '1000';
-    // console.log('######');
-    // console.log('priceUSD:=========='+this.state.price_usd);
-    // console.log('type', currencyType);
-    if(priceUsd !== ''){
-      const currencyPrice = fx(priceUsd).from("USD").to(currencyType);
-      console.log('currencyPrice'+currencyPrice);
-      this.setState({price: currencyPrice});
-    }
-
+    var priceUsd = this.state.price_usd;
+    let currencyPrice = priceUsd * currencyRates[currencyType];
+    this.setState({price: currencyPrice, currencyType: currencyType, currencyTitle: currencyType});
   }
 
   render() {
@@ -186,27 +150,18 @@ class CoinInfo extends Component {
               <h4><i className="fa fa-signal" aria-hidden="true" style={{fontSize:'28px'}}></i>  Rank: {this.state.rank}</h4>
             </div>
           </div>
-          <div>
+          <div className="main-header-div">
             <div className="main-header">
               <div className="main-header-currency">
-                <DropdownButton title='Currency'>
-                <MenuItem onClick={this.currencyClick('USD')} >USD</MenuItem>
-                <MenuItem onClick={this.currencyClick('EUR')} >EUR</MenuItem>
-                <MenuItem onClick={this.currencyClick('GBP')} >GBP</MenuItem>
-                <MenuItem onClick={this.currencyClick('CNY')} >CNY</MenuItem>
-                <MenuItem onClick={this.currencyClick('CAD')} >CAD</MenuItem>
-                <MenuItem onClick={this.currencyClick('AUD')} >AUD</MenuItem>
-                <MenuItem onClick={this.currencyClick('JPY')} >JPY</MenuItem>
-                  {/* {
+                <DropdownButton title={this.state.currencyTitle}>
+                  {
                     CURRENCIES.map((currencyType) =>
-                      <MenuItem onClick={this.currencyClick(currencyType)} >{currencyType}</MenuItem>)
-                  } */}
+                      <MenuItem onClick={() =>{this.currencyClick(currencyType)}} >{currencyType}</MenuItem>)
+                  }
                 </DropdownButton>
               </div>
-              <div className="main-header-price">
-                <h1>{this.state.price_usd}</h1>
-                {/* <ExchangeRate from='USD' to='CNY' val={this.state.price}/> */}
-                {/* <h1>{this.currencyFormatter(this.state.price, this.state.currencyType)}</h1> */}
+              <div className="main-price">
+                <h2 className="main-header-price">{this.currencyFormatter(this.state.price)}</h2>
               </div> 
             </div>
           </div>
@@ -270,6 +225,11 @@ class CoinInfo extends Component {
               <h4>{this.state.total_supply}</h4>
             </div>
           </div>
+        </div>
+
+
+        <div>
+          <PriceChart />
         </div>
       </div>
     )

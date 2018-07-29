@@ -12,20 +12,33 @@
 .coin-name {
   margin-left: 4%;
 }
+.main-header-div {
+  margin-left: 3%;
+  margin-right: 30%;
+  width: 150%;
+}
 
 .main-header {
   display: flex;
-  margin-left: 42%;
-  padding-left: 50px;
-  margin-top: 30%;
+  margin-left: 15%;
+  padding-left: 33px;
+  margin-top: 25%;
+  margin-bottom: 2%;
 }
 
 .main-header-currency {
-  margin-top: 20%;
+  margin-left: 2%;
+  margin-top: 16%;
+}
+
+.main-price {
+  margin-top: 11%;
+  margin-left: 5%;
+  margin-right: 20%;
 }
 
 .main-header-price {
-  margin-left: 20%;
+  width: 185%;
 }
 
 .coin-user-warning {
@@ -33,7 +46,7 @@
 }
 
 .coin-user-amount {
-  margin-left: 40%;
+  margin-right: 20%;
 }
 
 .coin-buy-sell-button {
@@ -43,7 +56,7 @@
 }
 
 .btn-lg .btn-group-lg > .btn {
-      padding: 10px 50px;
+  padding: 10px 50px;
 }
 
 .coinInfo-details-pannel {

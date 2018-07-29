@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-import { Table } from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import './static/css/welcome.css';
 import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.css';
@@ -32,38 +31,26 @@ class Welcome extends React.Component {
            const id = data[pro].id;
            const coinName = data[pro].name;
            const coinSymbol = data[pro].symbol;
+           const rank = data[pro].rank;
            const coinCirculatingSupply = data[pro].circulating_supply;
            const quotes = data[pro].quotes;
-           //const websiteSlug = data[pro].website_slug;
-           //const rank = data[pro].rank;
-           //const totalSupply = data[pro].total_supply;
 
            for(var quote in quotes){
              const price = quotes[quote].price;
-             //const marketCap = quotes[quote].market_cap;
-             //const percentChange1h = quotes[quote].percent_change_1h;
-            //const percentChange24h = quotes[quote].percent_change_24h
-
              var coinInfo = {
                              'rowid': this.rowid,
                              'id': id,
                              'coinName': coinName,
                              'coinSymbol': coinSymbol,
+                             'rank': rank,
                              'coinCirculatingSupply': coinCirculatingSupply,
-                             'price': price
-                             //'websiteSlug': websiteSlug,
-                             //'rank': rank,
-                             //'totalSupply': totalSupply,
-                             //'marketCap': marketCap,
-                             //'percentChange1h': percentChange1h,
-                             //'percentChange24h': percentChange24h
+                             'price': price,
+                             'priceGraph7d': '<img src=https://s2.coinmarketcap.com/generated/sparklines/web/7d/usd/'+id+'.png />',
                             };
                             this.rowid = this.rowid + 1;
            }
-
            this.coinsArray.push(coinInfo);
          }
-
       }).then(()=> this.setState({coinsInfo: this.coinsArray}));
 
     }
@@ -73,20 +60,20 @@ class Welcome extends React.Component {
         state:{ param:{'id': row.id,
                        'coinName': row.coinName,
                        'coinSymbol': row.coinSymbol
-                       // 'coinCirculatingSupply' : row.coinCirculatingSupply,
-                       // 'price': row.price,
-                       // 'rank' : row.rank,
-                       //'totalSupply': row.totalSupply,
-                       //'marketCap': row.marketCap,
-                       //'percentChange1h': row.percentChange1h,
-                       //'percentChange24h': row.percentChange24h
-                      } }
+                      } 
+                    }
       });
+    }
+
+    imageFormatter(cell, row){
+      return "<img src='https://s2.coinmarketcap.com/generated/sparklines/web/7d/usd/"+row.id+".png' />";
     }
 
     render() {
         const options = {
-          onRowClick: this.onRowClick
+          onRowClick: this.onRowClick,
+          defaultSortName: 'rank',
+          defaultSortOrder: 'asc'
         };
 
         return (
@@ -97,11 +84,13 @@ class Welcome extends React.Component {
               options={ options }
               pagination
               >
-              <TableHeaderColumn width="3%" dataField="rowid" headerAlign='center' dataAlign='center' isKey={true}>#</TableHeaderColumn>
+              <TableHeaderColumn dataField="rowid" headerAlign='center' dataAlign='center' hidden={true}>#</TableHeaderColumn>
+              <TableHeaderColumn width="3%" dataField="rank" headerAlign='center' dataAlign='center' dataSort={true} isKey={true}>Rank</TableHeaderColumn>
               <TableHeaderColumn width="10%" dataField="coinName" headerAlign='center' dataAlign='center'>CoinName</TableHeaderColumn>
               <TableHeaderColumn width="10%" dataField="coinSymbol" headerAlign='center' dataAlign='center'>CoinSymbol</TableHeaderColumn>
-              <TableHeaderColumn width="20%" dataField="coinCirculatingSupply">Circulating Supply</TableHeaderColumn>
+              <TableHeaderColumn width="15%" dataField="coinCirculatingSupply">Circulating Supply</TableHeaderColumn>
               <TableHeaderColumn width="10%" dataField="price">Price(USD)</TableHeaderColumn>
+              <TableHeaderColumn width="9%" dataField="priceGraph7d" dataFormat={this.imageFormatter}>Price Graph (7d)</TableHeaderColumn>
               <TableHeaderColumn dataField="id" hidden={true}></TableHeaderColumn>
             </BootstrapTable>
           </div>
