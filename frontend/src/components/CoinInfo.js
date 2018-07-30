@@ -7,7 +7,7 @@ import { FormGroup, FormControl, ControlLabel, HelpBlock, ButtonGroup, Button, A
 
 import 'font-awesome/css/font-awesome.min.css';
 import './static/css/coinInfo.css';
-import PriceChart from './price_chart/PriceChart';
+// import PriceChart from './price_chart/PriceChart';
 
 var CoinMarketCap = require("node-coinmarketcap");
 var coinmarketcap = new CoinMarketCap();
@@ -17,6 +17,8 @@ var formatCurrency = require('format-currency')
 class CoinInfo extends Component {
   constructor(props, context) {
     super(props, context);
+    this.bitcoinPriceUsd = '',
+    this.ethereumPriceUsd = '',
     this.state = {
       "price": '',
       "currencyType": 'USD',
@@ -28,7 +30,7 @@ class CoinInfo extends Component {
       "total_supply": '',
       "available_supply": '',
       "percent_change_1h": '',
-      "percent_change_24h": ''
+      "percent_change_24h": '',
     }
 
    this.onSubmit = this.onSubmit.bind(this);
@@ -41,6 +43,8 @@ class CoinInfo extends Component {
       if(coins.get(coinSymbol) === undefined){
         alert("There is no information about this coin now!");
       }else {
+        this.bitcoinPriceUsd = coins.get('BTC').price_usd;
+        this.ethereumPriceUsd = coins.get('ETH').price_usd;
         this.setState({coinSymbol: coins.get(coinSymbol).symbol, 
                        rank: coins.get(coinSymbol).rank,
                        price_usd: coins.get(coinSymbol).price_usd,
@@ -103,7 +107,10 @@ class CoinInfo extends Component {
       "CNY" : '¥',
       "CAD" : '$',
       "AUD" : '$',
-      "JPY" : '¥'
+      "JPY" : '¥',
+      "RUB" : '₽',
+      "BTC" : '',
+      "ETH" : ''
     }
     if(amount > 1){
       opts = { format: '%s %v%c',code: this.state.currencyType, symbol: currencySymbols[this.state.currencyType] }
@@ -115,6 +122,8 @@ class CoinInfo extends Component {
   }
 
   currencyClick(currencyType){
+    var priceUsd = this.state.price_usd;
+    let currencyPrice;
     var currencyRates = {
         "USD" : 1, 
         "EUR" : 0.855939,
@@ -122,17 +131,29 @@ class CoinInfo extends Component {
         "CNY" : 6.78965,
         "CAD" : 1.315771,
         "AUD" : 1.347365,
-        "JPY" : 111.20630435
+        "JPY" : 111.20630435,
+        "RUB" : 62.799807,
+        "BTC" : this.bitcoinPriceUsd
     }
-    var priceUsd = this.state.price_usd;
-    let currencyPrice = priceUsd * currencyRates[currencyType];
+
+    switch(currencyType){
+      case 'BTC':
+        currencyPrice = priceUsd / this.bitcoinPriceUsd;
+        break;
+      case 'ETH':
+        currencyPrice = priceUsd / this.ethereumPriceUsd;
+        break;
+      default:
+        currencyPrice = priceUsd * currencyRates[currencyType];
+        break;
+    }
     this.setState({price: currencyPrice, currencyType: currencyType, currencyTitle: currencyType});
   }
 
   render() {
     const { handleSubmit } = this.props;
     const param = this.props.location.state.param;
-    const CURRENCIES = ['USD', 'EUR',  'GBP', 'CNY', 'CAD', 'AUD', 'JPY'];
+    const CURRENCIES = ['USD', 'EUR',  'GBP', 'CNY', 'CAD', 'AUD', 'JPY', 'RUB', 'BTC', 'ETH'];
 
     return (
       <div>
@@ -229,7 +250,7 @@ class CoinInfo extends Component {
 
 
         <div>
-          <PriceChart />
+          {/* <PriceChart /> */}
         </div>
       </div>
     )
