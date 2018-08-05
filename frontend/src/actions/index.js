@@ -80,10 +80,7 @@ export const search = (formProps, callback) => async dispatch => {
 }
 
 export const signout = () => {
-  console.log('signout1:', `${localStorage.getItem('jwttoken')}`);
   localStorage.removeItem('jwttoken');
-  console.log('signout2:', `${localStorage.getItem('jwttoken')}`);
-
 
   return {
     type: AUTH_USER,

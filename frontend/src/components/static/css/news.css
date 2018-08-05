@@ -1,0 +1,11 @@
+.listDiv {
+  display: flex;
+}
+
+.listMainBody {
+  margin-left: 2%;
+}
+
+.listBodyTitle {
+  font-weight: bold;
+}

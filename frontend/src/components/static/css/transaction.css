@@ -1,5 +1,9 @@
 .transaction-table-header {
-  margin-top: 5%;
+  padding-top: 80px !important;
+  padding-bottom: 40px !important;
+  margin-top: 0%;
+  font-size: 50px;
+  color: white;
   text-align: center;
 }
 
@@ -8,3 +12,43 @@
   margin-left: 12.5%;
   margin-right: 12.5%;
 }
+
+.transactionoverall {
+  background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.87), rgba(53, 48, 131, 0.87)) !important;
+  background-size: cover;
+  background-position: center center;
+  position: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  height: 480vh;
+}
+
+
+.tableStyle{
+  border: 0px !important;
+  padding-top: 40px;
+}
+
+.tableStyle, .th-string-example {
+  font-style: oblique !important;
+  color: white !important;
+  background-color:transparent !important;
+}
+
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+  border-left: 0px solid #ddd !important;
+  border-right: 0px solid #ddd !important;
+  border-bottom: 1px solid rgb(124, 121, 121)  !important;
+}
+
+.table-custom {
+  margin-bottom: 0px;
+}
+
+.react-bs-table-container {
+  color: white;
+  width: 65%;
+  margin-left: 17.5%;
+  margin-right: 17.5%;
+}
+

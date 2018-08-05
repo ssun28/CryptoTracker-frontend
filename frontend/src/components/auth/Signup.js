@@ -3,7 +3,6 @@ import { reduxForm, Field } from 'redux-form';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-//import Button from '@material-ui/core/Button';
 import { FormGroup, FormControl, Button, ControlLabel } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 
@@ -15,7 +14,7 @@ bootstrapUtils.addStyle(Button, 'custom');
 class Signup extends Component {
   onSubmit = formProps => {
     this.props.signup(formProps, () => {
-      this.props.history.push('/feature');
+      this.props.history.push('/');
     });
   };
 
@@ -23,19 +22,19 @@ class Signup extends Component {
     const { handleSubmit } = this.props;
     return (
       <div className="overall-signup">
-      <div id="registerbgoverlay">
-      
+        <div id="registerbgoverlay">
           <div className="col-md-6 col-md-offset-3 signup">
             <h2 className="title"> CREATE ACCOUNT</h2>
-            <form onSubmit={handleSubmit(this.onSubmit)}>
-              <FormGroup>
-                <Field name="email" component="FormControl" componentClass="select">
-                  <ControlLabel className="control-label">Email</ControlLabel>
-                  <FormControl
-                    type="text"
-                    placeholder="Type in your email"
-                    onChange={this.handleChange}
-                  />
+              <form onSubmit={handleSubmit(this.onSubmit)}>
+                <FormGroup>
+                  <Field name="email" component="FormControl" componentClass="select">
+                    <ControlLabel className="control-label">Email</ControlLabel>
+                    <FormControl
+                      autocomplete="off"
+                      type="text"
+                      placeholder="Type in your email"
+                      onChange={this.handleChange}
+                    />
                 </Field>
               </FormGroup>
               <FormGroup>
@@ -43,6 +42,7 @@ class Signup extends Component {
                   <ControlLabel className="control-label">Username</ControlLabel>
                   <FormControl
                     type="text"
+                    autocomplete="off"
                     placeholder="Type in your username (length 6-30, no space)"
                     onChange={this.handleChange}
                   />
@@ -52,6 +52,7 @@ class Signup extends Component {
                 <Field name="password" component="FormControl" componentClass="select">
                   <ControlLabel className="control-label">Password</ControlLabel>
                   <FormControl
+                    autocomplete="off"
                     type="password"
                     placeholder="Type in your password (length 8-20, must have upper, lower case and digits, no space)"
                     onChange={this.handleChange}
@@ -63,6 +64,7 @@ class Signup extends Component {
                 <ControlLabel className="control-label">First Name</ControlLabel>
 
                   <FormControl
+                    autocomplete="off"
                     type="text"
                     placeholder="First Name"
                     onChange={this.handleChange}
@@ -74,6 +76,7 @@ class Signup extends Component {
                 <ControlLabel className="control-label">Last Name</ControlLabel>
 
                   <FormControl
+                    autocomplete="off"
                     type="text"
                     placeholder="Last Name"
                     onChange={this.handleChange}

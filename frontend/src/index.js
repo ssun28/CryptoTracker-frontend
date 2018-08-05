@@ -9,8 +9,8 @@ import reducers from './reducers';
 import App from './components/App';
 import Welcome from './components/Welcome';
 import CoinInfo from './components/CoinInfo';
+import News from './components/News';
 import Signup from './components/auth/Signup';
-import Feature from './components/Feature';
 import Signout from './components/auth/Signout';
 import Signin from './components/auth/Signin';
 import Portfolio from './components/auth/Portfolio';
@@ -37,8 +37,8 @@ ReactDOM.render(
       <App>
         <Route path="/" exact component={Welcome} />
         <Route path="/coinInfo" exact component={CoinInfo} />
+        <Route path="/news" component={News} />
         <Route path="/signup" component={Signup} />
-        <Route path="/feature" component={Feature} />
         <Route path="/signout" component={Signout} />
         <Route path="/signin" component={Signin} />
         <Route path="/user/portfolio" component={Portfolio} />

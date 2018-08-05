@@ -4,7 +4,8 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import {Alert} from 'react-bootstrap';
-import { Button, ControlLabel } from 'react-bootstrap';
+import { FormGroup, FormControl, Button, ControlLabel } from 'react-bootstrap';
+import '../static/css/setting.css';
 
 class Setting extends Component {
 
@@ -18,44 +19,47 @@ class Setting extends Component {
 
         const { handleSubmit } = this.props;
         return (
-            <div className="in">
+            <div className="overall-setting">
+            <div id="settingbgoverlay">
+            
               <div>
                 <Alert bsStyle="warning">
                   <strong>For the security reason, you will be automatically logout when you update the setting!</strong>
                 </Alert>
               </div>
-            <div className="col-md-6 col-md-offset-3 signin">
+            <div className="col-md-6 col-md-offset-3 setting">
               <form onSubmit={handleSubmit(this.onSubmit)}>
-                  <fieldset>
-                  <ControlLabel className="control-label"><label>New Email:  </label></ControlLabel>
-                      <Field
-                          name="email"
-                          type="text"
-                          component="input"
-                          autoComplete="none"
-                      />
-                  </fieldset>
-                  <fieldset>
-                  <ControlLabel className="control-label"><label>New Username:  </label></ControlLabel>
-                      <Field
-                          name="username"
-                          type="text"
-                          component="input"
-                          autoComplete="none"
-                      />
-                  </fieldset>
-                  <fieldset>
-                  <ControlLabel className="control-label"><label>New Password:  </label></ControlLabel>
-                      <Field
-                          name="password"
-                          type="password"
-                          component="input"
-                          autoComplete="none"
-                      />
-                  </fieldset>
+
+              <FormGroup>
+                <Field name="email" component="FormControl" componentClass="select">
+                  <ControlLabel className="control-label">Your New Email</ControlLabel>
+                  <FormControl
+                    type="text"
+                  />
+                </Field>
+              </FormGroup>
+                  
+              <FormGroup>
+                <Field name="username" component="FormControl" componentClass="select">
+                  <ControlLabel className="control-label">Your New Username</ControlLabel>
+                  <FormControl
+                    type="text"
+                  />
+                </Field>
+              </FormGroup>
+                 
+              <FormGroup>
+                <Field name="password" component="FormControl" componentClass="select">
+                  <ControlLabel className="control-label">Your New Password</ControlLabel>
+                  <FormControl
+                    type="password"
+                  />
+                </Field>
+              </FormGroup>
                   <div>{this.props.errorMessage}</div>
-                  <Button bsStyle="custom" type="submit" bsSize="large" block>Update Settings!</Button>
+                  <Button bsStyle="info" type="submit" bsSize="large" block>Update Settings!</Button>
               </form>
+              </div>
               </div>
            </div>
         );

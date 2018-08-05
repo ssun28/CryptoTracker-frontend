@@ -1,52 +1,77 @@
 .coinInfo-header {
   display: flex;
-  margin-top: 8%;
   margin-left: 10%;
 }
 
-.coin-logo img{
-  margin-top: 4%;
+.coinInco-sidebar {
+  margin-top: 5%;
+}
+
+.coin-logo img {
+  margin-top: 40%;
   margin-left: 4%;
 }
 
 .coin-name {
+  color: white !important;
   margin-left: 4%;
 }
+
 .main-header-div {
-  margin-left: 3%;
-  margin-right: 30%;
-  width: 150%;
+  margin-left: 2%;
+  margin-right: 15%;
+  width: 200%;
 }
 
 .main-header {
+  color: white !important;
   display: flex;
-  margin-left: 15%;
-  padding-left: 33px;
-  margin-top: 25%;
+  margin-left: 3%;
+  padding-left: 25px;
+  margin-top: 15%;
   margin-bottom: 2%;
 }
 
 .main-header-currency {
+  color: white !important;
   margin-left: 2%;
   margin-top: 16%;
 }
 
 .main-price {
-  margin-top: 11%;
+  color: white !important;
+  margin-top: 14%;
   margin-left: 5%;
   margin-right: 20%;
 }
 
 .main-header-price {
+  color: white !important;
   width: 185%;
 }
 
 .coin-user-warning {
-  margin-top: -15%;
+  color: white !important;
+  margin-top: 15%;
 }
 
 .coin-user-amount {
-  margin-right: 20%;
+  color: white !important;
+  margin-top: 5%;
+  margin-right: 18%;
+}
+
+.has-success .help-block,
+.has-success .control-label,
+.has-success .radio,
+.has-success .checkbox,
+.has-success .radio-inline,
+.has-success .checkbox-inline,
+.has-success.radio label,
+.has-success.checkbox label,
+.has-success.radio-inline label,
+.has-success.checkbox-inline label {
+  color: white !important;
 }
 
 .coin-buy-sell-button {
@@ -55,35 +80,49 @@
   padding-left: 22%;
 }
 
-.btn-lg .btn-group-lg > .btn {
+.btn-lg .btn-group-lg>.btn {
   padding: 10px 50px;
 }
 
 .coinInfo-details-pannel {
+  color: white !important;
   display: flex;
-  margin-left: 25%;
+  width: 180%;
+  margin-top: 5%;
+  margin-left: 20%;
 }
 
 .coin-summary-item-header {
-  background-color: #f5f7f8;
-  padding: 12px 12px 11px;
+  padding: 12px 16px 11px;
   border-top: none;
   border-bottom: 1px solid #e1e5ea;
   border-left: none;
   border-right: none;
-  font-size: 20px;
+  font-size: 25px;
   white-space: nowrap;
   margin-bottom: 12px;
 }
 
 .coin-summary-item-details {
-  padding: 0 12px;
+  padding: 0 15px;
 }
 
 .coin-user-input {
   display: flex;
 }
 
-/* input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
   background-color: black !important;
-} */
+}
+
+.coininfooverall {
+  background: linear-gradient(to top left, rgba(0, 0, 0, 0.87), rgba(55, 66, 101, 0.87)) !important;
+  background-size: cover;
+  background-position: center center;
+  position: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  height: 200vh;
+}

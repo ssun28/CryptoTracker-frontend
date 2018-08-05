@@ -1,0 +1,33 @@
+.overall-profile{
+    background-image: url('../../../assets/registerbg.png') !important;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 100vh;
+  
+  }
+
+#profilebgoverlay{
+    position: absolute;
+    background-color: rgba(253, 127, 8, 0.45) !important;
+    top: 0;
+    bottom:  0;
+    height: 100%;
+    width: 100%;
+  
+}
+
+.profile {
+  background:rgba(0, 0, 0, 0.5) !important;
+  color: #fff;
+  transform: translate(-50%, -50%);
+  top: 40%;
+  left: 25%;
+  height: 45%;
+  width: 400px;
+  position: absolute;
+}
+
+  

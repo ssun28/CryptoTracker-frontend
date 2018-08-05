@@ -156,7 +156,7 @@ class CoinInfo extends Component {
     const CURRENCIES = ['USD', 'EUR',  'GBP', 'CNY', 'CAD', 'AUD', 'JPY', 'RUB', 'BTC', 'ETH'];
 
     return (
-      <div>
+      <div className="coininfooverall">
         <div className="coinInfo-header">
           <div className="coinInco-sidebar">
             <div className="coin-logo">
@@ -195,13 +195,13 @@ class CoinInfo extends Component {
                 <FormGroup controlId="formValidationSuccess1" validationState="success">
                   <Field name="amount" component="FormControl" componentClass="select">
                   <ControlLabel><h2>amount</h2></ControlLabel>
-                  <FormControl type="text" />
+                  <FormControl autocomplete="off" type="text" />
                   </Field>
                   <HelpBlock>Please enter an integer</HelpBlock>
                 </FormGroup>
                 <FormGroup controlId="formValidationSuccess2" validationState="success">
                   <Field name="price" component="FormControl" componentClass="select">
-                  <FormControl type="text" placeholder={this.state.price_usd} />
+                  <FormControl autocomplete="off" type="text" placeholder={this.state.price_usd} />
                   </Field>
                   <HelpBlock>Trade Price</HelpBlock>
                 </FormGroup>
@@ -219,31 +219,31 @@ class CoinInfo extends Component {
           <div className="coin-summary-item">
             <h5 className="coin-summary-item-header">Market Cap</h5>
             <div className="coin-summary-item-details">
-              <h4>{this.state.market_cap_usd}</h4>
+              <h3>{this.state.market_cap_usd}</h3>
             </div>
           </div>
           <div className="coin-summary-item">
             <h5 className="coin-summary-item-header">Percent Change (1h)</h5>
             <div className="coin-summary-item-details">
-              <h4>{this.state.percent_change_1h}</h4>
+              <h3>{this.state.percent_change_1h}</h3>
             </div>
           </div>
           <div className="coin-summary-item">
             <h5 className="coin-summary-item-header">Percent Change (24h)</h5>
             <div className="coin-summary-item-details">
-              <h4>{this.state.percent_change_24h}</h4>
+              <h3>{this.state.percent_change_24h}</h3>
             </div>
           </div>
           <div className="coin-summary-item">
             <h5 className="coin-summary-item-header">Coin Circulating Supply</h5>
             <div className="coin-summary-item-details">
-              <h4>{this.state.available_supply}</h4>
+              <h3>{this.state.available_supply}</h3>
             </div>
           </div>
           <div className="coin-summary-item">
             <h5 className="coin-summary-item-header">Total Supply</h5>
             <div className="coin-summary-item-details">
-              <h4>{this.state.total_supply}</h4>
+              <h3>{this.state.total_supply}</h3>
             </div>
           </div>
         </div>

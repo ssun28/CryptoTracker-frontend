@@ -5,9 +5,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { FormGroup, FormControl, Button, ControlLabel } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
-import cryptoSearch from '../../crypto-search/search';
-import '../static/css/search.css';
 import { BootstrapTable, TableHeaderColumn, TableDataSet } from 'react-bootstrap-table';
+import cryptoSearch from '../../crypto-search/search';
 
 import '../static/css/search.css';
 import '../static/css/components.css';
@@ -21,17 +20,14 @@ class Search extends React.Component {
     this.dataSet = new Array();
     this.index = 1;
     this.state = {
-
       sr: [],
       srList: [],
-
     }
 
     this.onSubmit = this.onSubmit.bind(this);
     this.setState = this.setState.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onRowClick = this.onRowClick.bind(this);
-
   }
 
   onSubmit = formProps => {
@@ -40,9 +36,6 @@ class Search extends React.Component {
     cryptoSearch.partialNameSearchCoins(formProps.searchItem)
       .then((res) => {
         // console.log(res);
-
-
-
         for (var searchresults in res) {
           console.log(res[searchresults])
           // const singlecoin = res[searchresults];
@@ -58,13 +51,11 @@ class Search extends React.Component {
 
       }).then(() => this.setState({ sr: this.dataSet })); // [ 'BTC Lite', 'BTCMoon' ]
     //.catch(err => console.log(err))
-
   }
-
 
   setData(data) {
     this.dataSet.push(data);
-    console.log(this.dataSet);
+    // console.log(this.dataSet);
   }
 
   clearData() {
@@ -80,29 +71,27 @@ class Search extends React.Component {
       });
   }
 
-
   doCheck() {
-    console.log(this.dataSet.length)    
-    
+    console.log(this.dataSet.length)
+
     const options = {
       onRowClick: this.onRowClick
     };
 
     if (this.dataSet.length > 0) {
       return (
-        <BootstrapTable data={this.dataSet} 
+        <BootstrapTable data={this.dataSet}
         options={ options }
-        trClassName="tableStyle">
+        tableStyle={{ border: '0px' }}
+        pagination
+        >
           <TableHeaderColumn dataField='index' isKey={true}><p id="title">Index</p></TableHeaderColumn>
           <TableHeaderColumn dataField='id'><p id="title">ID Result</p></TableHeaderColumn>
           <TableHeaderColumn dataField='name'><p id="title">Name Result</p></TableHeaderColumn>
           <TableHeaderColumn dataField='symbol'><p id="title">Symbol Result</p></TableHeaderColumn>
-
         </BootstrapTable>
-
       )
     }
-
   }
 
   handleChange() {
@@ -112,14 +101,10 @@ class Search extends React.Component {
   render() {
     const { handleSubmit } = this.props;
 
-
     return (
       <div className="overall">
-
-        <div>
-          <center>
-            <form className="form" onSubmit={handleSubmit(this.onSubmit)}>
-
+        <div className="searchposition">
+            <form className="searchform" onSubmit={handleSubmit(this.onSubmit)}>
               <div>
                 <FormGroup>
                   <Field name="searchItem" component="FormControl">
@@ -127,25 +112,17 @@ class Search extends React.Component {
                     <FormControl
                       type="text"
                       onChange={this.handleChange}
-                      
                     />
                   </Field>
-
                 </FormGroup>
-
                 <Button bsStyle="warning" type="submit" bsSize="medium" block> Start </Button>
               </div>
-
             </form>
-
-          </center>
           <div>
             {this.doCheck()}
           </div>
         </div>
-
       </div>
-
     );
   }
 }

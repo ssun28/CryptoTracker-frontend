@@ -15,12 +15,11 @@ class Signin extends React.Component {
     super(props, context);
 
     this.handleChange = this.handleChange.bind(this);
-
   }
 
   onSubmit = formProps => {
     this.props.signin(formProps, () => {
-      this.props.history.push({ pathname: '/feature/ssh', state: { param: 'signinstatessh' } });
+      this.props.history.push('/');
     });
   };
 
@@ -32,43 +31,39 @@ class Signin extends React.Component {
 
     return (
       <div id="bg">
-
         <div id="bgoverlay">
           <center>
             <form className="form" onSubmit={handleSubmit(this.onSubmit)}>
-
               <div>
                 <FormGroup>
                   <Field name="email" component="FormControl">
                     <ControlLabel>Email</ControlLabel>
                     <FormControl
+                      autocomplete="off"
                       type="text"
                       onChange={this.handleChange}
                     />
                   </Field>
-
                   <Field name="password" component="FormControl">
                     <ControlLabel>Password</ControlLabel>
                     <FormControl
+                      autocomplete="off"
                       type="password"
                       onChange={this.handleChange}
                     />
                   </Field>
-
                 </FormGroup>
               </div>
               <div id="errorStyle">{this.props.errorMessage}</div>
               <div>
                 <Button bsStyle="primary" type="submit" bsSize="medium" block>
                   Log In
-            </Button>
+                </Button>
               </div>
             </form>
           </center>
         </div>
-
       </div>
-
     );
   }
 }

@@ -3,8 +3,9 @@ import { reduxForm, Field } from 'redux-form';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import { Button, ControlLabel } from 'react-bootstrap';
+import { FormGroup, FormControl, Button, ControlLabel } from 'react-bootstrap';
 import axios from 'axios';
+import '../static/css/profile.css'
 
 class Profile extends Component {
   constructor() {
@@ -20,7 +21,7 @@ class Profile extends Component {
 
   onSubmit = formProps => {
     this.props.profile(formProps, () => {
-      this.props.history.push('/feature');
+      this.props.history.push('/');
     });
   };
 
@@ -39,46 +40,42 @@ class Profile extends Component {
   render() {
     const { handleSubmit } = this.props;
 
-
-
     return (
-      <div className="in">
-        <div className="col-md-6 col-md-offset-3 signin">
-
-          <form onSubmit={handleSubmit(this.onSubmit)}>
-            <fieldset>
-              <ControlLabel className="control-label"><label>Github:  </label></ControlLabel>
-              <Field
-                name="github"
-                type="text"
-                component="input"
-                autoComplete="none"
-                placeholder={this.state.github}
-              />
-            </fieldset>
-            <fieldset>
-              <ControlLabel className="control-label"><label>Interest:  </label></ControlLabel>
-              <Field
-                name="interest"
-                type="text"
-                component="input"
-                autoComplete="none"
-                placeholder={this.state.interest}
-              />
-            </fieldset>
-            <fieldset>
-              <ControlLabel className="control-label"><label>Investment:  </label></ControlLabel>
-              <Field
-                name="investment"
-                type="text"
-                component="input"
-                autoComplete="none"
-                placeholder={this.state.investment}
-              />
-            </fieldset>
+      <div className="overall-profile">
+        <div id="profilebgoverlay">
+          <div className="col-md-6 col-md-offset-3 profile">
+            <form onSubmit={handleSubmit(this.onSubmit)}>
+              <FormGroup>
+                <Field name="github" component="FormControl" componentClass="select">
+                  <ControlLabel className="control-label">Your Github</ControlLabel>
+                  <FormControl
+                    type="text"
+                    placeholder={this.state.github}
+                  />
+                </Field>
+              </FormGroup>
+              <FormGroup>
+              <Field name="interest" component="FormControl" componentClass="select">
+                <ControlLabel className="control-label">Your Interest</ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder={this.state.interest}
+                />
+              </Field>
+            </FormGroup>
+            <FormGroup>
+                <Field name="investment" component="FormControl" componentClass="select">
+                  <ControlLabel className="control-label">Your Investment</ControlLabel>
+                  <FormControl
+                    type="text"
+                    placeholder={this.state.investment}
+                  />
+                </Field>
+              </FormGroup>
             <div>{this.props.errorMessage}</div>
-            <Button bsStyle="custom" type="submit" bsSize="large" block>Update Profile!</Button>
+            <Button bsStyle="warning" type="submit" bsSize="large" block>Update Profile!</Button>
           </form>
+        </div>
         </div>
       </div>
     );

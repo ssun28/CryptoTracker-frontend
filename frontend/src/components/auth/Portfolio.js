@@ -60,26 +60,15 @@ class Portfolio extends Component {
       };
 
       return (
-        <div>
-          <div className="transaction-header">
-            <div className="transaction-siderbar">
-              <div className="total-value">
-                <TextField
-                  label="Total Portfolio Value"
-                  id="margin-none"
-                  value={Number(this.state.totalPortfolioValue).toFixed(2)}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="transaction-table-header">
-
-            <h1>Here are the coins you have</h1>
-            <h1>Total Portfolio Value : {Number(this.state.totalPortfolioValue).toFixed(2)}</h1>
-            <h1>Profit/Loss : {Number(this.state.profitOrLoss).toFixed(2)}</h1>
+        <div className="portfoliooverall">
+          
+          <div className="portfolio-table-header">
+            <p1>Here are the coins you have<br /></p1>
+            <p2>Total Portfolio Value in USD : {Number(this.state.totalPortfolioValue).toFixed(2)}<br /></p2>
+            <p3>Profit/Loss in USD: {Number(this.state.profitOrLoss).toFixed(2)}</p3>
           </div>
           <BootstrapTable className=""
-            tableStyle={{ border: 'black 2px solid', background: '#FFFFFF' } }
+            tableStyle={{ border: '0px' } }
             data={ this.state.portfolio }
             pagination
             options={ options }
@@ -87,6 +76,7 @@ class Portfolio extends Component {
             <TableHeaderColumn width="50%" dataField="type" headerAlign='center' dataAlign='center' dataSort={true} isKey={true}> Coin </TableHeaderColumn>
             <TableHeaderColumn width="50%" dataField="amount" headerAlign='center' dataAlign='center'> Amount </TableHeaderColumn>
           </BootstrapTable>
+          
         </div>
       );
     }

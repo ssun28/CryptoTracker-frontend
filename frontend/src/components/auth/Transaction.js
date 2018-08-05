@@ -17,12 +17,6 @@ class Transaction extends Component {
     }
   }
 
-  onSubmit = formProps => {
-    //this.props.profile(formProps, () => {
-      //this.props.history.push('/feature');
-    //});
-  };
-
   componentDidMount() {
     axios.get('http://localhost:8000/user/transactions',
       { headers: { "authorization": `${localStorage.getItem('jwttoken')}` } })
@@ -36,26 +30,30 @@ class Transaction extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const options = {
+      defaultSortName: 'id',
+      defaultSortOrder: 'asc'
+    };
 
     return (
-      <div>
+      <div className="transactionoverall">
         <div className="transaction-table-header">
-          <h1>Transaction Records</h1>
+          <p1>Transaction Records</p1>
         </div>
         <BootstrapTable className="transaction-table"
-          tableStyle={{ border: 'black 2px solid', background: '#FFFFFF' } }
+          tableStyle={{ border: '0px' } }
           data={ this.state.transactions }
+          options={options}
           pagination
           >
-          <TableHeaderColumn width="3%" dataField="id" headerAlign='center' dataAlign='center' isKey={true}>#</TableHeaderColumn>
-          <TableHeaderColumn width="12%" dataField="sell_type" headerAlign='center' dataAlign='center'>Sell Type</TableHeaderColumn>
+          <TableHeaderColumn width="3%" dataField="id" headerAlign='center' dataAlign='center' dataSort={true} isKey={true}>#</TableHeaderColumn>
+          <TableHeaderColumn width="12%" dataField="sell_type" headerAlign='center' dataAlign='center' dataSort={true}>Sell Type</TableHeaderColumn>
           <TableHeaderColumn width="15%" dataField="sell_price" headerAlign='center' dataAlign='center'>Sell Price</TableHeaderColumn>
           <TableHeaderColumn width="12%" dataField="sell_amount" headerAlign='center' dataAlign='center'>Sell Amount</TableHeaderColumn>
           <TableHeaderColumn width="12%" dataField="income_type" headerAlign='center' dataAlign='center'>Income Type</TableHeaderColumn>
           <TableHeaderColumn width="15%" dataField="income_price" headerAlign='center' dataAlign='center'>Income Price</TableHeaderColumn>
           <TableHeaderColumn width="12%" dataField="income_amount" headerAlign='center' dataAlign='center'>Income Amount</TableHeaderColumn>
-          <TableHeaderColumn width="19%" dataField="createdAt">Time</TableHeaderColumn>
+          <TableHeaderColumn width="19%" dataField="createdAt" dataSort={true}>Time</TableHeaderColumn>
         </BootstrapTable>
       </div>
     );

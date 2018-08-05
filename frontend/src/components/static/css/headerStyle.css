@@ -8,3 +8,7 @@ header{
 .navbar{
     margin-bottom: 0px !important;
 }
+
+.navbar-header{
+    width:500px !important;
+}
