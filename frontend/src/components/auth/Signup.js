@@ -84,9 +84,11 @@ class Signup extends Component {
                 </Field>
               </FormGroup>
               <div><ControlLabel className="control-label">{this.props.errorMessage}</ControlLabel></div>
+              <div>
               <Button bsStyle="success" type="submit" bsSize="large" block>
                 Sign Up
-          </Button>
+              </Button>
+              </div>
             </form>
           </div>
           </div>

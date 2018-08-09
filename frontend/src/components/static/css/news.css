@@ -1,11 +1,26 @@
 .listDiv {
+  background: linear-gradient(to bottom left, rgba(248, 244, 8, 0.863), rgba(236, 109, 4, 0.87)) !important;
+  
   display: flex;
 }
 
 .listMainBody {
+  color: black;
   margin-left: 2%;
 }
 
 .listBodyTitle {
   font-weight: bold;
 }
+
+.newsoverall{
+  background: linear-gradient(to bottom left, rgba(0, 0, 0, 0.87), rgba(11, 46, 141, 0.87)) !important;
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+  margin-top: 0;
+  margin-bottom: 0;
+  height: 400vh;
+}
+
+

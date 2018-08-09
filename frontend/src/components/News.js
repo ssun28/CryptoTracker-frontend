@@ -53,11 +53,8 @@ class News extends Component {
 
   render() {
     return (
-      <div >
-        <div>
-          News
-        </div>
-        <div>
+      <div className="newsoverall">
+        <div className="newList">
           <ListGroup>
             {this.state.newsInfo.map(function(news,index){
               return <ListGroupItem>
